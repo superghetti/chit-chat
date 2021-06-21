@@ -1,23 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
 function App() {
+  const [messageList, setMessageList] = useState([]);
+  const [message, setMessage] = useState("");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (event.target["0"]) {
+      setMessageList((list) => {
+        return [
+          ...list,
+          {
+            value: event.target["0"].value,
+            date: new Date(),
+            username: "superghetti",
+          },
+        ];
+      });
+      setMessage("");
+    }
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Welcome to Chit-Chat</h1>
+      <div>
+        {messageList.map((message) => {
+          return (
+            <div
+              key={message.date}
+            >{`${message.username}: ${message.value} --- ${message.date}`}</div>
+          );
+        })}
+      </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        />
+        <input type="submit" />
+      </form>
     </div>
   );
 }
