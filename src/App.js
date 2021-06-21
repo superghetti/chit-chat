@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+// Believe in the users
+
 function App() {
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState("");
